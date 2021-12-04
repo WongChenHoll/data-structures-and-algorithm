@@ -1,7 +1,8 @@
 package com.jason.dsaa.nonlinearity.graph;
 
-import com.jason.structure.nodes.EdgeNode;
-import com.jason.structure.nodes.VertexNode;
+
+import com.jason.dsaa.nodes.EdgeNode;
+import com.jason.dsaa.nodes.VertexNode;
 
 /**
  * 邻接表图。

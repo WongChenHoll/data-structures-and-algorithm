@@ -1,6 +1,7 @@
 package com.jason.dsaa.nonlinearity.graph;
 
-import com.jason.structure.nodes.VertexNode;
+
+import com.jason.dsaa.nodes.VertexNode;
 
 /**
  * 图的接口.

@@ -1,6 +1,7 @@
 package com.jason.dsaa.nonlinearity.tree;
 
-import com.jason.structure.nodes.HuffmanNode;
+
+import com.jason.dsaa.nodes.HuffmanNode;
 
 import java.util.Arrays;
 

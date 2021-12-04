@@ -1,6 +1,6 @@
 package com.jason.dsaa.nonlinearity.graph;
 
-import com.jason.structure.nodes.VertexNode;
+import com.jason.dsaa.nodes.VertexNode;
 
 /**
  * 邻接矩阵存储图

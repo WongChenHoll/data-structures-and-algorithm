@@ -1,7 +1,7 @@
 package com.jason.dsaa.nonlinearity.graph;
 
 
-import com.jason.structure.linearity.queue.LinkedQueue;
+import com.jason.dsaa.linearity.queue.LinkedQueue;
 
 /**
  * 图的常用方法。
