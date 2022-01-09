@@ -1,6 +1,7 @@
 package com.jason.dsaa.internalSort;
 
-import com.jason.algorithm.utils.PrintUtil;
+
+import com.jason.dsaa.utils.PrintUtil;
 
 /**
  * 选择排序。包括直接选择排序、树形选择排序、堆排序

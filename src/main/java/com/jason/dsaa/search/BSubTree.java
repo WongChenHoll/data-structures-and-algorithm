@@ -8,11 +8,19 @@ import java.util.Arrays;
 
 /**
  * B-树,一个树的阶，就是这个树中各个节点的子节点个数的最大值.
+ * B-树是一种更够解决存储在外存储器上的大文件数据查找。
  * <pre>
- *     在B-树中，假如该树为m阶，则：
- *     1.所有的终端结点（叶子结点）都出现在同一层次上，并且不带任何信息。
- *     2.除根结点之外，所有的非终端结点的关键字个数最少为m/2-1个，最多为m-1个。
- *     3.每个结点的子树数目最少为m/2个，最多为m个。
+ *     在B-树中，假如该树为m阶
+ *      结点示例：
+ *          n | P0 | K1 | P1 | K2 | P2 | K3 | P3 | K4 | P4 .......
+ *          其中阶数：m >= 3 。
+ *          n 是该结点关键字的个数，n的取值范围： m/2 -1 <= n <= m-1 。
+ *          Pi指向子树，Kj为该结点j位置的关键字。 0 <= i <=n , 1 <= j <= n 。
+ *
+ *      1.所有的终端结点（叶子结点）都出现在同一层次上，并且不带任何信息。
+ *      2.除根结点之外，所有的非终端结点的关键字个数：最少为m/2-1个，最多为m-1个。
+ *      3.每个结点的子树数目最少为m/2个，最多为m个。
+ *
  * </pre>
  *
  * @author WangChenHol
@@ -46,28 +54,28 @@ public class BSubTree<E extends Comparable<E>> {
      */
     public BSubTreeResult<E> search(BTreeNode<E> root, E data) {
         int index = 0;
-        BTreeNode<E> curr = root; // 当前查找的结点
-        BTreeNode<E> q = null;
+        BTreeNode<E> currSearchNode = root; // 当前查找的结点
+        BTreeNode<E> parentNode = null;
         boolean found = false; // 是否查找到数据
         BSubTreeResult<E> result = new BSubTreeResult<>(); // 返回的结果
 
-        while (!found && curr != null) {
+        while (!found && currSearchNode != null) {
             index = 0;
-            while (index < curr.keyNum && data.compareTo(curr.key[index]) > 0) {
+            while (index < currSearchNode.keyNum && data.compareTo(currSearchNode.key[index]) > 0) {
                 index++;
             }
-            if (index < curr.keyNum && data.compareTo(curr.key[index]) == 0) {
-                found = true;
+            if (index < currSearchNode.keyNum && data.compareTo(currSearchNode.key[index]) == 0) {
+                found = true; //找到
             } else {
-                q = curr;
-                curr = curr.child[index];
+                parentNode = currSearchNode;
+                currSearchNode = currSearchNode.child[index];
             }
         }
         if (!found) {
-            curr = q;
+            currSearchNode = parentNode;
         }
         result.i = index;
-        result.resultNode = curr;
+        result.resultNode = currSearchNode;
         result.found = found;
         return result;
     }
@@ -89,8 +97,8 @@ public class BSubTree<E extends Comparable<E>> {
             this.root.keyNum++;
             return true;
         }
+        // 插入数据之前先判断该数据是否已经存在于B-树中，如果存在则不需要插入，直接返回
         BSubTreeResult<E> search = search(root, data);
-        // 已经存在数据，不重新插入，直接返回true
         if (search.found) {
             return true;
         }
@@ -129,8 +137,8 @@ public class BSubTree<E extends Comparable<E>> {
                 BTreeNode<E> splitNode = splitNode(parent, middleKey);
                 BTreeNode<E>[] child = parent.child;
                 BTreeNode<E> div = div(copyCurrKey, middleKey, parent);
-                splitNode.child[0]=div.child[0];
-                splitNode.child[1]=div.child[1];
+                splitNode.child[0] = div.child[0];
+                splitNode.child[1] = div.child[1];
                 return div;
             } else {
                 return div(copyCurrKey, middleKey, parent);
